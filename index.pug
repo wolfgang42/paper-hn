@@ -11,10 +11,10 @@ html(lang="en")
 			progress {display: block; margin: 2em auto; width: 100%; max-width: 25em}
 			a:link, a:visited {text-decoration: none; color: inherit}
 			a:link:hover {text-decoration: underline}
-			main {margin: 0 auto}
-			.grid-item, .grid-sizer {width: 100%; max-width: 25em; margin: 3em}
-			main section {border-bottom: 1px solid black; padding-bottom: 3em; margin-bottom: 0 !important}
-			main section:nth-child(-n+3) {max-width: 56em}
+			main {margin: -2em auto 0}
+			.grid-item, .grid-sizer {width: 100%; max-width: 25em; margin: 2em}
+			main section {border-bottom: 1px solid black; padding-bottom: 2em; margin-bottom: 0 !important}
+			main section:nth-child(-n+3) {max-width: 54em}
 			main section:nth-child(-n+3) h2 {font-size: 220%}
 			main section:nth-child(-n+3) img {filter: none}
 			main section:nth-child(n+10) h2 {font-size: 120%}
@@ -22,7 +22,7 @@ html(lang="en")
 			main section:hover img {filter: none}
 			h2 {margin: 0 0 0.5em}
 			main section p {margin-top: 0.25em;}
-			p {margin: 0; -webkit-hyphens: auto; -moz-hyphens: auto; -ms-hyphens: auto; -o-hyphens: auto; word-break:break-word; hyphens: auto;}
+			p {margin: 0; -webkit-hyphens: auto; -moz-hyphens: auto; -ms-hyphens: auto; -o-hyphens: auto; word-break:break-word; hyphens: auto; text-align: justify}
 			.keyword {font-family: sans-serif}
 			.keyword a:link, .imprint a:link {text-decoration: underline}
 			.job {margin-top: 1em; padding-bottom: 1em}
@@ -45,8 +45,10 @@ html(lang="en")
 				span #{date} UTC
 		.noscript This looks much nicer if you enable JavaScript.
 		main
+			- let imgcnt = 0
 			for story, idx in stories
 				section.grid-item
+					- if (story.image) imgcnt++
 					if story.image
 						img(src=story.image)
 					h2: a(href=story.url)=story.title
@@ -111,3 +113,17 @@ html(lang="en")
 				})
 				progress.remove()
 			})
+		// Matomo
+		script(type="text/javascript").
+			var _paq = window._paq || [];
+			/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+			_paq.push(['trackPageView']);
+			_paq.push(['enableLinkTracking']);
+			(function() {
+				var u="//analytics.linestarve.com/";
+				_paq.push(['setTrackerUrl', u+'matomo.php']);
+				_paq.push(['setSiteId', '10']);
+				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+			})();
+		noscript: p: img(src="//analytics.linestarve.com/matomo.php?idsite=10&amp;rec=1" style="border:0;" alt="")
