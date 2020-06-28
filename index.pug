@@ -79,6 +79,11 @@ html(lang="en")
 		script(src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js")
 		script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js")
 		script.
+			if (!window.imagesLoaded || !window.Masonry) {
+				// Libraries failed to load somehow
+				main.style.display = 'block'
+				progress.remove()
+			}
 			imagesLoaded(main, function() {
 				main.style.display = 'block'
 				var msnry = new Masonry(main, {
