@@ -1,0 +1,97 @@
+doctype html
+html(lang="en")
+	head
+		title Paper HN
+		meta(charset='utf-8')
+		meta(name="viewport" content="initial-scale=1")
+		style.
+			h1 {font-size: 300%; text-align: center; margin-bottom: 0.5em}
+			.mastspan {border-top: 1px solid black; border-bottom: 1px solid black; padding: 0.25em 0.5em; display: flex; justify-content: space-between}
+			progress {display: block; margin: 2em auto; width: 100%; max-width: 400px}
+			a:link, a:visited {text-decoration: none; color: inherit}
+			a:link:hover {text-decoration: underline}
+			main {margin: 0 auto}
+			.grid-item, .grid-sizer {max-width: 400px; margin: 1em}
+			main section:nth-child(-n+3) {max-width: 800px}
+			main section:nth-child(-n+3) h2 {font-size: 220%}
+			main section:nth-child(-n+3) img {filter: none}
+			main section:nth-child(n+10) h2 {font-size: 120%}
+			main section img {max-width: 100%; filter: grayscale(100%); display: block; margin: 0 auto}
+			main section:hover img {filter: none}
+			h2 {margin: 0.5em 0}
+			p {margin-top: 0.5em; -webkit-hyphens: auto; -moz-hyphens: auto; -ms-hyphens: auto; -o-hyphens: auto; word-break:break-word; hyphens: auto;}
+			.keyword {font-family: sans-serif}
+			.keyword a:link, .imprint a:link {text-decoration: underline}
+			.job {font-size: 90%; border-top: 1px solid black; margin-top: 1em; padding-top: 1em; margin-bottom: 0}
+			.job p {margin: 0}
+			.imprint {margin-top: 2em}
+			.imprint p {border: 1px solid black; padding: 0.75em; margin: 0}
+	body
+		header
+			h1: a(href='https://news.ycombinator.com') Hacker News
+			.mastspan
+				span No. #{Math.max(...stories.map(s => s.id))}
+				span #{date} UTC
+		.noscript This looks much nicer if you enable JavaScript.
+		main
+			for story, idx in stories
+				section.grid-item
+					if story.image
+						img(src=story.image)
+					h2: a(href=story.url)=story.title
+					p
+						code=story.domain
+						!=' &mdash; '
+						=story.paragraph
+						=' '
+						strong.keyword
+							a(href='https://news.ycombinator.com/item?id='+story.id)=story.keyword
+							| ,&nbsp#{idx+1}
+			for job in jobs
+				section.grid-item.job
+					p
+						a(href=job.url) #[strong=job.title1] #{job.title2}
+						=' '
+						code=job.domain
+			footer.grid-item.imprint
+				p.
+					A project of #[a(href='https://www.wolfgangfaust.com') Wolfgang Faust].&ensp;
+					Open source on GitHub as #[a(href='https://github.com/wolfgang42/paper-hn') wolfgang42/paper-hn].&ensp;
+					Data from #[a(href='https://news.ycombinator.com') Hacker News].&ensp;
+					Inspired by #[a(href='https://unim.press') The Unim.press].
+			.grid-sizer
+		script.
+			var main = document.querySelector('main')
+			document.querySelector('.noscript').remove()
+			main.style.display = 'none'
+			var progress = document.createElement('progress')
+			progress.innerText = 'Loading...'
+			document.body.append(progress)
+		script(src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js")
+		script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js")
+		script.
+			imagesLoaded(main, function() {
+				main.style.display = 'block'
+				var msnry = new Masonry(main, {
+					itemSelector: '.grid-item',
+					columnWidth: '.grid-sizer',
+					fitWidth: true,
+					gutter: 0,
+					transitionDuration: 0,
+				})
+				// Retrigger masonry after window resize
+				// I don't quite understand why this is necessary---masonry should be doing this already,
+				// and also it doesn't seem to work unless I introduce a considerable delay---but
+				// since this works I'm not going to spend any more time messing with it.
+				var rsevent = null
+				window.addEventListener('resize', function(event){
+					if (!rsevent) {
+						rsevent = window.setTimeout(function() {
+							msnry.layout()
+							console.log('resize')
+							rsevent = null
+						}, 200)
+					}
+				})
+				progress.remove()
+			})
