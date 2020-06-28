@@ -1,6 +1,8 @@
 # [Paper HN](https://www.wolfgangfaust.com/project/paper-hn/)
 Hacker News front page in the style of a print newspaper.
 
+![](screenshot.png)
+
 ## How to run
 ```
 yarn install
