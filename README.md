@@ -6,7 +6,6 @@ Hacker News front page in the style of a print newspaper.
 ## How to run
 ```
 yarn install
-mkdir -p cache/hn/item cache/url
 node ./bin/generate-html.mjs
 ```
 This will create an `index.html` file which you can view. 

@@ -7,6 +7,9 @@ import psl from 'psl'
 import html2text from 'html2plaintext'
 
 ;(async () => {
+	await fs.ensureDir('cache/hn/item')
+	await fs.ensureDir('cache/url')
+	
 	await init_titles()
 	
 	const stories = []
