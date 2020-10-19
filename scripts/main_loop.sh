@@ -8,7 +8,7 @@ echo Starting up... > index.html
 while true
 do
     node --experimental-modules ./bin/generate-html.mjs    
-    sleep 60
+    sleep 300
     rm cache/hn/*.json
 done
 
