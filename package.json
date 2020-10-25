@@ -12,6 +12,6 @@
     "url-toolkit": "^2.2.0"
   },
   "scripts": {
-    "watch": "nodemon -e mjs,pug ./bin/generate-html-hn.mjs"
+    "watch": "nodemon -e mjs,pug ./bin/generate-html.mjs"
   }
 }

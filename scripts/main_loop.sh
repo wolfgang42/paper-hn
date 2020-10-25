@@ -9,7 +9,7 @@ echo Starting up... > index.html
 
 while true
 do
-    node --trace-warnings --experimental-modules ./bin/generate-html-hn.mjs    
+    node --trace-warnings --experimental-modules ./bin/generate-html.mjs    
     sleep $REFRESH_INTERVAL
 
     find cache/ -name "*.json" -type f -delete
