@@ -7,6 +7,6 @@ COPY . /paper-hn
 WORKDIR /paper-hn
 RUN yarn install
 
-COPY /scripts/main_loop_hn.sh .
+COPY /scripts/main_loop.sh .
 
-CMD /paper-hn/main_loop_hn.sh
+CMD /paper-hn/main_loop.sh
