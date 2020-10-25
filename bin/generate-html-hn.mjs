@@ -1,7 +1,10 @@
-import{hnget, getitem} from '../lib/hn.mjs' import{
-    init_titles, title_keyword} from '../lib/keywords.mjs' import{
-    page_info} from '../lib/page-extract.mjs' import pug from 'pug' import fs
-    from 'fs-extra' import psl from 'psl' import html2text from 'html2plaintext'
+import {hnget, getitem} from '../lib/hn.mjs'
+import {init_titles, title_keyword} from '../lib/keywords.mjs'
+import {page_info} from '../lib/page-extract.mjs'
+import pug from 'pug'
+import fs from 'fs-extra'
+import psl from 'psl'
+import html2text from 'html2plaintext'
 
 ;(async () => {
 	
