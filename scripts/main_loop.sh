@@ -9,7 +9,7 @@ echo Starting up... > index.html
 
 while true
 do
-    node --experimental-modules ./bin/generate-html.mjs    
+    node --trace-warnings --experimental-modules ./bin/generate-html-hn.mjs    
     sleep $REFRESH_INTERVAL
     rm cache/hn/*.json
 done
