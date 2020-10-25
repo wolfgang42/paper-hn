@@ -54,14 +54,18 @@ import{hnget, getitem} from '../lib/hn.mjs' import{
 			stories.push(story)
 		}
 		
-		// for (const jobid of (await hnget(source_url, 'jobstories', cache_path)).slice(0, 3)) {
-		// 	const job = await getitem(source_url, jobid, cache_path)
-		// 	const split = job.title.split(' ')
-		// 	const splitix = (split.findIndex(w => w.toLowerCase() === 'hiring') || 3)+1
-		// 	job.title1 = split.slice(0, splitix).join(' ')
-		// 	job.title2 = split.slice(splitix).join(' ')
-		// 	jobs.push(job)
-		// }
+		const jobstories = await hnget(source_url, 'jobstories', cache_path)
+		if(jobstories != null)
+		{
+			for (const jobid of jobstories.slice(0, 3)) {
+				const job = await getitem(source_url, jobid, cache_path)
+				const split = job.title.split(' ')
+				const splitix = (split.findIndex(w => w.toLowerCase() === 'hiring') || 3)+1
+				job.title1 = split.slice(0, splitix).join(' ')
+				job.title2 = split.slice(splitix).join(' ')
+				jobs.push(job)
+			}
+		}
 	}
 
 	await fs.writeFile('index.html', pug.renderFile('index.pug', {
