@@ -34,7 +34,6 @@ import html2text from 'html2plaintext'
 	const jobs = []
 	for (const jobid of (await hnget('jobstories')).slice(0, 3)) {
 		const job = await getitem(jobid)
-		job.domain = psl.parse(new URL(job.url).hostname).domain
 		const split = job.title.split(' ')
 		const splitix = (split.findIndex(w => w.toLowerCase() === 'hiring') || 3)+1
 		job.title1 = split.slice(0, splitix).join(' ')
