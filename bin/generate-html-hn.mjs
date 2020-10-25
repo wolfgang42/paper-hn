@@ -34,12 +34,9 @@ import html2text from 'html2plaintext'
 		var story_domain=story_domains[i]
 		var cache_path=cache_paths[i]
 		
-		console.log("Fetching from:"+source_url);
-
 		var storyids=await hnget(source_url, 'topstories',cache_path)
 		
 		for (var storyid of (storyids).slice(0, 30)) {
-			console.log("    Getting:"+source_url+storyid);
 			var story = await getitem(source_url, storyid, cache_path)
 			if (story.type !== 'story') continue // Filter out jobs
 			story.keyword = title_keyword(story.title)
