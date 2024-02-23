@@ -1,12 +1,15 @@
-FROM node:14.12
+FROM node
 
-RUN apt-get update
 RUN npm install http-server -g
-COPY . /paper-hn
 
-WORKDIR /paper-hn
-RUN yarn install
+RUN adduser user
+USER user
 
+
+USER user
+WORKDIR /home/user
+RUN yarn install --modules-folder=/home/user/node_modules
+COPY . .
 COPY /scripts/main_loop.sh .
 
-CMD /paper-hn/main_loop.sh
+CMD /home/user/main_loop.sh

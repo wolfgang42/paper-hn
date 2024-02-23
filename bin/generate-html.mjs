@@ -7,22 +7,22 @@ import psl from 'psl'
 import html2text from 'html2plaintext'
 
 ;(async () => {
-	
-	
+
+
 	const stories = []
 	const jobs = []
 	const source_urls=['https://hacker-news.firebaseio.com/v0/', 'https://laarrc.firebaseio.com/v0/']
 	const story_urls=['https://news.ycombinator.com/item?id=', 'https://www.laarc.io/item?id=']
 	const story_domains=['news.ycombinator.com','laarc.io']
 	const cache_paths=['hacker-news', 'lobster']
-	
-	
+
+
 	for (var i=0; i<source_urls.length; i++){
 		var source_url=source_urls[i]
 		var story_url=story_urls[i]
 		var story_domain=story_domains[i]
 		var cache_path=cache_paths[i]
-		
+
 		await fs.ensureDir(`cache/${cache_path}/item`)
 		await fs.ensureDir('cache/url')
 		await init_titles()
@@ -33,9 +33,9 @@ import html2text from 'html2plaintext'
 		var story_url=story_urls[i]
 		var story_domain=story_domains[i]
 		var cache_path=cache_paths[i]
-		
+
 		var storyids=await hnget(source_url, 'topstories',cache_path)
-		
+
 		for (var storyid of (storyids).slice(0, 30)) {
 			var story = await getitem(source_url, storyid, cache_path)
 			if (story.type !== 'story') continue // Filter out jobs
@@ -53,7 +53,7 @@ import html2text from 'html2plaintext'
 			}
 			stories.push(story)
 		}
-		
+
 		const jobstories = await hnget(source_url, 'jobstories', cache_path)
 		if(jobstories != null)
 		{
