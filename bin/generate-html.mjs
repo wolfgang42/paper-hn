@@ -11,10 +11,10 @@ import html2text from 'html2plaintext'
 
 	const stories = []
 	const jobs = []
-	const source_urls=['https://hacker-news.firebaseio.com/v0/', 'https://laarrc.firebaseio.com/v0/']
-	const story_urls=['https://news.ycombinator.com/item?id=', 'https://www.laarc.io/item?id=']
-	const story_domains=['news.ycombinator.com','laarc.io']
-	const cache_paths=['hacker-news', 'lobster']
+	const source_urls=['https://hacker-news.firebaseio.com/v0/']
+	const story_urls=['https://news.ycombinator.com/item?id=']
+	const story_domains=['news.ycombinator.com']
+	const cache_paths=['hacker-news']
 
 
 	for (var i=0; i<source_urls.length; i++){
