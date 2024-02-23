@@ -17,6 +17,4 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes vim
 RUN chown -R user:user .
 USER user
 
-HEALTHCHECK CMD curl --fail 127.0.0.1:8080 || exit 1
-
 CMD /home/user/main_loop.sh
