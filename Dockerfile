@@ -13,7 +13,8 @@ RUN yarn install --modules-folder=/home/user/node_modules
 COPY /scripts/main_loop.sh .
 
 USER root
-RUN apt update && apt install vi
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes vim
+RUN chown -R user:user .
 USER user
 
 CMD /home/user/main_loop.sh
