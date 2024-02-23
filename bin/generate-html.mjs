@@ -71,11 +71,11 @@ import html2text from 'html2plaintext'
 	await fs.writeFile('index.html', pug.renderFile('index.pug', {
 		stories,
 		jobs,
-		date: new Date(1000*Math.max(...stories.map(s => s.time))).toLocaleString('en-US', {
+		date: new Intl.DateTimeFormat('en-US', {
 			timeZone: 'UTC',
 			dateStyle: 'full',
 			timeStyle: 'short',
 			timeZoneName: 'short',
-		}),
+		}).format(new Date(1000*Math.max(...stories.map(s => s.time)))),
 	}))
 })().then(null, err => {throw err})
