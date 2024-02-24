@@ -26,7 +26,7 @@ if [[ -f ${moduli} ]]; then
 fi
 
 # Remove existing crontabs, if any.
-#rm -fr /var/spool/cron
+rm -fr /var/spool/cron
 rm -fr /etc/crontabs
 rm -fr /etc/periodic
 
@@ -73,7 +73,7 @@ find $sysdirs -xdev -type d \
 find $sysdirs -xdev -type f -a -perm /4000 -delete
 
 # Remove all guid files.
-find $sysdirs -xdev -type f -a -perm /2000 -a ! -name crontab -delete
+find $sysdirs -xdev -type f -a -perm /2000 -delete
 
 # Remove other programs that could be dangerous.
 find $sysdirs -xdev \( \

@@ -1,7 +1,5 @@
 FROM node
 
-RUN npm install http-server -g
-
 RUN adduser user
 USER user
 
@@ -14,8 +12,7 @@ COPY /scripts/main_loop.sh .
 COPY /scripts/harden.sh .
 
 USER root
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes nginx cron
-RUN echo '0 */4 * * * rm -rf /home/user/cache/hn/*.json' > /tmp/crontab && cat /tmp/crontab | crontab -
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes nginx
 
 ENV TZ=Europe/Vienna
 ENV LANG=en_US.UTF-8 \

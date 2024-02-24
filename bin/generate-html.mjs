@@ -6,8 +6,32 @@ import fs from 'fs-extra'
 import psl from 'psl'
 import html2text from 'html2plaintext'
 
+function getArgs () {
+    const args = {};
+    process.argv
+        .slice(2, process.argv.length)
+        .forEach( arg => {
+        // long arg
+        if (arg.slice(0,2) === '--') {
+            const longArg = arg.split('=');
+            const longArgFlag = longArg[0].slice(2,longArg[0].length);
+            const longArgValue = longArg.length > 1 ? longArg[1] : true;
+            args[longArgFlag] = longArgValue;
+        }
+        // flags
+        else if (arg[0] === '-') {
+            const flags = arg.slice(1,arg.length).split('');
+            flags.forEach(flag => {
+            args[flag] = true;
+            });
+        }
+    });
+    return args;
+}
+
 ;(async () => {
 
+	const args = getArgs();
 
 	const stories = []
 	const jobs = []
@@ -21,18 +45,20 @@ import html2text from 'html2plaintext'
 		var source_url=source_urls[i]
 		var story_url=story_urls[i]
 		var story_domain=story_domains[i]
-		var cache_path=cache_paths[i]
+		var cache_path=args[cache_paths[i]] // i.e. pass --hacker-news=hn (dirty hack but I'm not a JS dev.)
 
 		await fs.ensureDir(`cache/${cache_path}/item`)
 		await fs.ensureDir('cache/url')
-		await init_titles()
+		await init_titles(cache_path)
 	}
 
 	for (var i=0; i<source_urls.length; i++){
 		var source_url=source_urls[i]
 		var story_url=story_urls[i]
 		var story_domain=story_domains[i]
-		var cache_path=cache_paths[i]
+		var cache_path=args[cache_paths[i]]
+
+		console.log("Cache path: " + cache_path);
 
 		var storyids=await hnget(source_url, 'topstories',cache_path)
 
