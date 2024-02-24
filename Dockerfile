@@ -16,6 +16,10 @@ USER root
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes nginx cron
 RUN echo '25 5 * * * rm -rf /home/user/cache/hn/*.json' > /tmp/crontab
 
+ENV TZ=Europe/Vienna
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8
+
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /var/lib/nginx
 RUN chown -R user:user /var/lib/nginx
