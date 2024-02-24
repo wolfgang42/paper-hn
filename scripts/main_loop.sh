@@ -10,7 +10,5 @@ while true
 do
     node --trace-warnings --experimental-modules ./bin/generate-html.mjs
     sleep $REFRESH_INTERVAL
-
-    #find cache/ -name "*.json" -type f -delete
 done
 
