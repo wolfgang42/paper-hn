@@ -13,7 +13,9 @@ RUN yarn install --modules-folder=/home/user/node_modules
 COPY /scripts/main_loop.sh .
 
 USER root
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes nginx
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes nginx cron
+RUN echo '25 5 * * * rm -rf /home/user/cache/hn/*.json' > /tmp/crontab
+
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /var/lib/nginx
 RUN chown -R user:user /var/lib/nginx
