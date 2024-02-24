@@ -14,7 +14,7 @@ COPY /scripts/main_loop.sh .
 
 USER root
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install --yes nginx cron
-RUN echo '25 5 * * * rm -rf /home/user/cache/hn/*.json' > /tmp/crontab
+RUN echo '25 5 * * * rm -rf /home/user/cache/hn/*.json' > /tmp/crontab && cat /tmp/crontab | crontab -
 
 ENV TZ=Europe/Vienna
 ENV LANG=en_US.UTF-8 \
