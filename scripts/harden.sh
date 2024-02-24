@@ -128,7 +128,6 @@ command_paths="
 find $command_paths -xdev \( \
   -name apt -o \
   -name cat -o \
-  -name date -o \
   -name id -o \
   -name ldd -o \
   -name ls -o \
